@@ -4,10 +4,6 @@
 
 - add @floating-ui/dom as a peer dependency ([fcc1ab6](https://github.com/bastienmoulia/ngx-overlay/commit/fcc1ab6))
 
-### ❤️ Thank You
-
-- Bastien @bastienmoulia
-
 ## 0.0.1 (2025-05-23)
 
 ### 🚀 Features
