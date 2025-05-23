@@ -137,6 +137,9 @@ export class NgxoTooltipComponent implements OnDestroy {
         );
         if (target) {
           target.setAttribute('style', `anchor-name: --${this.interestId()}`);
+          Array.from(target.children).forEach((child) => {
+            (child as HTMLElement).style.pointerEvents = 'none';
+          });
           this.target.set(target as HTMLElement);
         } else {
           console.warn(
