@@ -14,7 +14,9 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "@ngx-overlay/ngx-overlay": ["libs/ngx-overlay/src/index.ts"]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }
