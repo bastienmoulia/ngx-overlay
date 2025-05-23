@@ -8,4 +8,11 @@ import { NgxoTooltipComponent } from '@ngx-overlay/ngx-overlay';
   styleUrl: './tooltip.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TooltipComponent {}
+export class TooltipComponent {
+  positions: ('top' | 'bottom' | 'left' | 'right')[] = [
+    'top',
+    'bottom',
+    'left',
+    'right',
+  ];
+}

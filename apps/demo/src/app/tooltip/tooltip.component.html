@@ -1,2 +1,11 @@
 <ngxo-tooltip [interestId]="'my-tooltip'">My awesome tooltip</ngxo-tooltip>
 <button interesttarget="my-tooltip">Hover me</button>
+
+<hr />
+
+@for(position of positions; track $index) {
+<ngxo-tooltip [interestId]="'my-tooltip-' + position" [position]="position"
+  >My awesome tooltip</ngxo-tooltip
+>
+<button [attr.interesttarget]="'my-tooltip-' + position">{{ position }}</button>
+}

@@ -19,7 +19,7 @@ import {
       id="{{ interestId() }}"
       popover="hint"
       #popover
-      class="{{ class() }}"
+      class="{{ cssClass() }}"
       role="tooltip"
       [style]="styles()"
     >
@@ -29,7 +29,6 @@ import {
   styles: `
     :host {
       display: contents;
-      --tooltip-offset: 5px;
     }
 
     [popover="hint"] {
@@ -65,16 +64,7 @@ export class NgxoTooltipComponent implements OnDestroy {
   interestId = input.required<string>();
   tooltip = viewChild.required<ElementRef>('popover');
   position = input<'top' | 'bottom' | 'left' | 'right'>('top');
-  size = input<'small' | 'medium' | 'large'>('medium');
   cssClass = input<string>();
-  baseClass = signal<string>('ig-tooltip').asReadonly();
-  class = computed<string>(() => {
-    let classString = `${this.baseClass()} ${this.baseClass()}--${this.position()} ${this.baseClass()}--${this.size()}`;
-    if (this.cssClass()) {
-      classString += ` ${this.cssClass()}`;
-    }
-    return classString;
-  });
   hasInterestPolyfill = signal(false);
   noCssAnchor = signal(false);
   target = signal<HTMLElement>(undefined!);
@@ -88,9 +78,32 @@ export class NgxoTooltipComponent implements OnDestroy {
       styles['left'] = 'auto';
       styles['right'] = 'auto';
     } else {
-      styles['bottom'] = 'calc(anchor(top) + var(--tooltip-offset))';
-      styles['justify-self'] = 'anchor-center';
-      styles['position-try-fallbacks'] = 'flip-block';
+      switch (this.position()) {
+        case 'top':
+          styles['bottom'] =
+            'calc(anchor(top) + var(--ngxo-tooltip-offset, 5px))';
+          styles['justify-self'] = 'anchor-center';
+          styles['position-try-fallbacks'] = 'flip-block';
+          break;
+        case 'bottom':
+          styles['top'] =
+            'calc(anchor(bottom) + var(--ngxo-tooltip-offset, 5px))';
+          styles['justify-self'] = 'anchor-center';
+          styles['position-try-fallbacks'] = 'flip-block';
+          break;
+        case 'left':
+          styles['right'] =
+            'calc(anchor(left) + var(--ngxo-tooltip-offset, 5px))';
+          styles['align-self'] = 'anchor-center';
+          styles['position-try-fallbacks'] = 'flip-inline';
+          break;
+        case 'right':
+          styles['left'] =
+            'calc(anchor(right) + var(--ngxo-tooltip-offset, 5px))';
+          styles['align-self'] = 'anchor-center';
+          styles['position-try-fallbacks'] = 'flip-inline';
+          break;
+      }
     }
     return styles;
   });
