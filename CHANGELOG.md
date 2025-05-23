@@ -2,17 +2,13 @@
 
 ### 🚀 Features
 
-- enhance tooltip component with dynamic positioning and CSS class updates ([3c539d6](https://github.com/bastienmoulia/ngx-overlay/commit/3c539d6))
-
-### ❤️ Thank You
-
-- Bastien @bastienmoulia
+- Enhance tooltip component with dynamic positioning and CSS class updates ([3c539d6](https://github.com/bastienmoulia/ngx-overlay/commit/3c539d6))
 
 ## 0.0.2 (2025-05-23)
 
 ### 🚀 Features
 
-- add @floating-ui/dom as a peer dependency ([fcc1ab6](https://github.com/bastienmoulia/ngx-overlay/commit/fcc1ab6))
+- Add @floating-ui/dom as a peer dependency ([fcc1ab6](https://github.com/bastienmoulia/ngx-overlay/commit/fcc1ab6))
 
 ## 0.0.1 (2025-05-23)
 
