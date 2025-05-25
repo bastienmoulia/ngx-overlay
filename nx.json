@@ -72,7 +72,7 @@
       "preVersionCommand": "npx nx run-many -t build"
     },
     "changelog": {
-      "projectChangelogs": {
+      "workspaceChangelog": {
         "renderOptions": {
           "authors": false
         }
