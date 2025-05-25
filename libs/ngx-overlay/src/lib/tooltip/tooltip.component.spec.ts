@@ -12,6 +12,7 @@ describe('NgxoTooltipComponent', () => {
 
     fixture = TestBed.createComponent(NgxoTooltipComponent);
     component = fixture.componentInstance;
+    fixture.componentRef.setInput('interestId', 'myInterestId');
     fixture.detectChanges();
   });
 
