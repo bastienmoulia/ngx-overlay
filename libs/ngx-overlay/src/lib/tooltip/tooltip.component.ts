@@ -12,6 +12,19 @@ import {
   viewChild,
 } from '@angular/core';
 
+export const TOOLTIP_CSS_VARIABLES = {
+  '--ngxo-tooltip-margin': '0',
+  '--ngxo-tooltip-background-color': '#000',
+  '--ngxo-tooltip-text-color': '#fff',
+  '--ngxo-tooltip-offset': '.5rem',
+  '--ngxo-tooltip-border-radius': '.25rem',
+  '--ngxo-tooltip-border': 'none',
+  '--ngxo-tooltip-padding': '.5rem',
+  '--ngxo-tooltip-font': 'normal 1rem',
+  '--ngxo-tooltip-box-shadow': 'none',
+  '--ngxo-tooltip-transition': 'opacity 0.3s ease-in-out',
+};
+
 @Component({
   selector: 'ngxo-tooltip',
   template: `
@@ -19,7 +32,6 @@ import {
       id="{{ interestId() }}"
       popover="hint"
       #popover
-      class="{{ cssClass() }}"
       role="tooltip"
       [style]="styles()"
     >
@@ -34,15 +46,15 @@ import {
     [popover="hint"] {
       inset: unset;
       position: absolute;
-      margin: 0;
-      padding: 8px;
-      border-radius: 6px;
-      background: #000;
-      color: #fff;
-      border: none;
-      font-size: 1rem;
-      font-weight: normal;
-      transition: opacity 0.3s ease-in-out;
+      margin: var(--ngxo-tooltip-margin, ${TOOLTIP_CSS_VARIABLES['--ngxo-tooltip-margin']});
+      padding: var(--ngxo-tooltip-padding, ${TOOLTIP_CSS_VARIABLES['--ngxo-tooltip-padding']});
+      border-radius: var(--ngxo-tooltip-border-radius, ${TOOLTIP_CSS_VARIABLES['--ngxo-tooltip-border-radius']});
+      background: var(--ngxo-tooltip-background-color, ${TOOLTIP_CSS_VARIABLES['--ngxo-tooltip-background-color']});
+      color: var(--ngxo-tooltip-text-color, ${TOOLTIP_CSS_VARIABLES['--ngxo-tooltip-text-color']});
+      border: var(--ngxo-tooltip-border, ${TOOLTIP_CSS_VARIABLES['--ngxo-tooltip-border']});
+      font: var(--ngxo-tooltip-font, ${TOOLTIP_CSS_VARIABLES['--ngxo-tooltip-font']});
+      box-shadow: var(--ngxo-tooltip-box-shadow, ${TOOLTIP_CSS_VARIABLES['--ngxo-tooltip-box-shadow']});
+      transition: var(--ngxo-tooltip-transition, ${TOOLTIP_CSS_VARIABLES['--ngxo-tooltip-transition']});
       opacity: 0;
     }
 
@@ -64,7 +76,6 @@ export class NgxoTooltipComponent implements OnDestroy {
   interestId = input.required<string>();
   tooltip = viewChild.required<ElementRef>('popover');
   position = input<'top' | 'bottom' | 'left' | 'right'>('top');
-  cssClass = input<string>();
   hasInterestPolyfill = signal(false);
   noCssAnchor = signal(false);
   target = signal<HTMLElement>(undefined!);
