@@ -1,3 +1,9 @@
+## 0.0.6 (2025-05-25)
+
+### 🚀 Features
+
+- remove inner div in tooltip component ([b2cc2ab](https://github.com/bastienmoulia/ngx-overlay/commit/b2cc2ab))
+
 ## 0.0.5 (2025-05-25)
 
 ### 🚀 Features
