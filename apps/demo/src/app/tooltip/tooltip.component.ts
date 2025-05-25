@@ -1,9 +1,13 @@
+import { KeyValuePipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { NgxoTooltipComponent } from '@ngx-overlay/ngx-overlay';
+import {
+  NgxoTooltipComponent,
+  TOOLTIP_CSS_VARIABLES,
+} from '@ngx-overlay/ngx-overlay';
 
 @Component({
   selector: 'app-tooltip',
-  imports: [NgxoTooltipComponent],
+  imports: [NgxoTooltipComponent, KeyValuePipe],
   templateUrl: './tooltip.component.html',
   styleUrl: './tooltip.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -15,4 +19,5 @@ export class TooltipComponent {
     'left',
     'right',
   ];
+  cssVariables = TOOLTIP_CSS_VARIABLES;
 }
