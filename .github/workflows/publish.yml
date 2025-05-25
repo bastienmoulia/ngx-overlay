@@ -31,7 +31,7 @@ jobs:
         shell: bash
 
       - name: Build the library
-        run: npx nx build ngx-overlay --configuration production
+        run: npx nx build ngx-overlay --configuration production --no-cloud
         shell: bash
 
       - name: Print Environment Info
@@ -39,7 +39,7 @@ jobs:
         shell: bash
 
       - name: Publish packages
-        run: npx nx release publish
+        run: npx nx release publish --no-cloud
         shell: bash
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_ACCESS_TOKEN }}
