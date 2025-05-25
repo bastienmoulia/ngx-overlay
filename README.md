@@ -8,6 +8,15 @@ NgxOverlay is a lightweight Angular library designed to leverage the latest CSS 
 npm install @ngx-overlay/ngx-overlay
 ```
 
+## Compatibility issues and workarounds
+
+- For positioning overlays, the CSS anchors positioning feature is used, which is [not supported in some browsers yet](https://caniuse.com/css-anchor-positioning). To ensure compatibility, the `@floating-ui/dom` library is loaded when needed.
+- For displaying tooltips, we use the `interesttarget` attribute, which is not supported in all browsers. To ensure compatibility, we use a [polyfill](https://github.com/mfreed7/interesttarget).
+
 ## Usage
 
 // TODO: Add usage instructions
+
+## Contributing
+
+We welcome contributions to NgxOverlay! If you have suggestions, bug reports, or feature requests, please open an issue or submit a pull request on our [GitHub repository](https://github.com/bastienmoulia/ngx-overlay).
