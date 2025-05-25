@@ -2,7 +2,10 @@
   "name": "@ngx-overlay/source",
   "version": "0.0.0",
   "license": "MIT",
-  "scripts": {},
+  "scripts": {
+    "release": "npx nx release --skip-publish",
+    "postrelease": "git push && git push --tags"
+  },
   "private": true,
   "dependencies": {
     "@angular/common": "~19.2.0",
