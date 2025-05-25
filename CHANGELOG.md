@@ -2,11 +2,7 @@
 
 ### 🚀 Features
 
-- use css variables for styling tooltip component ([48f6367](https://github.com/bastienmoulia/ngx-overlay/commit/48f6367))
-
-### ❤️ Thank You
-
-- Bastien @bastienmoulia
+- Use css variables for styling tooltip component ([48f6367](https://github.com/bastienmoulia/ngx-overlay/commit/48f6367))
 
 ## 0.0.4 (2025-05-23)
 
