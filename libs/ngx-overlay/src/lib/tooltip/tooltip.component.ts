@@ -9,7 +9,6 @@ import {
   input,
   OnDestroy,
   signal,
-  viewChild,
 } from '@angular/core';
 
 export const TOOLTIP_CSS_VARIABLES = {
@@ -27,23 +26,15 @@ export const TOOLTIP_CSS_VARIABLES = {
 
 @Component({
   selector: 'ngxo-tooltip',
-  template: `
-    <div
-      id="{{ interestId() }}"
-      popover="hint"
-      #popover
-      role="tooltip"
-      [style]="styles()"
-    >
-      <ng-content />
-    </div>
-  `,
+  template: ` <ng-content /> `,
+  host: {
+    popover: 'hint',
+    role: 'tooltip',
+    '[attr.id]': 'interestId()',
+    '[attr.style]': 'styleString()',
+  },
   styles: `
     :host {
-      display: contents;
-    }
-
-    [popover="hint"] {
       inset: unset;
       position: absolute;
       margin: var(--ngxo-tooltip-margin, ${TOOLTIP_CSS_VARIABLES['--ngxo-tooltip-margin']});
@@ -56,14 +47,14 @@ export const TOOLTIP_CSS_VARIABLES = {
       box-shadow: var(--ngxo-tooltip-box-shadow, ${TOOLTIP_CSS_VARIABLES['--ngxo-tooltip-box-shadow']});
       transition: var(--ngxo-tooltip-transition, ${TOOLTIP_CSS_VARIABLES['--ngxo-tooltip-transition']});
       opacity: 0;
-    }
 
-    [popover="hint"]:popover-open {
-      opacity: 1;
+      &:popover-open {
+        opacity: 1;
+      }
     }
 
     @starting-style {
-      [popover="hint"]:popover-open {
+      :host:popover-open {
         opacity: 0;
       }
     }
@@ -72,14 +63,15 @@ export const TOOLTIP_CSS_VARIABLES = {
 })
 export class NgxoTooltipComponent implements OnDestroy {
   #document = inject(DOCUMENT);
+  #elementRef = inject(ElementRef<HTMLElement>);
 
   interestId = input.required<string>();
-  tooltip = viewChild.required<ElementRef>('popover');
   position = input<'top' | 'bottom' | 'left' | 'right'>('top');
+  style = input<string | null>(null);
   hasInterestPolyfill = signal(false);
   noCssAnchor = signal(false);
   target = signal<HTMLElement>(undefined!);
-  styles = computed(() => {
+  computedStyle = computed(() => {
     const styles: { [key: string]: string | null } = {
       'position-anchor': '--' + this.interestId(),
     };
@@ -117,6 +109,15 @@ export class NgxoTooltipComponent implements OnDestroy {
       }
     }
     return styles;
+  });
+  styleString = computed(() => {
+    let styleString = Object.entries(this.computedStyle())
+      .map(([k, v]) => `${k}:${v}`)
+      .join(';');
+    if (this.style()) {
+      styleString += ';' + this.style();
+    }
+    return styleString;
   });
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   private cleanup: () => void = () => {};
@@ -169,13 +170,13 @@ export class NgxoTooltipComponent implements OnDestroy {
           this.cleanup();
           this.cleanup = autoUpdate(
             this.target(),
-            this.tooltip().nativeElement,
+            this.#elementRef.nativeElement,
             () => {
-              computePosition(this.target(), this.tooltip().nativeElement, {
+              computePosition(this.target(), this.#elementRef.nativeElement, {
                 placement: this.position(),
                 middleware: [offset(4)],
               }).then(({ x, y }) => {
-                Object.assign(this.tooltip().nativeElement.style, {
+                Object.assign(this.#elementRef.nativeElement.style, {
                   left: `${x}px`,
                   top: `${y}px`,
                 });
