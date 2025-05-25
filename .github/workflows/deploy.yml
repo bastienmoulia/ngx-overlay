@@ -40,7 +40,7 @@ jobs:
         run: npm ci --legacy-peer-deps
 
       - name: Build the application
-        run: npx nx build demo --configuration production
+        run: npx nx build demo --configuration production --base-href /ngx-overlay/
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
