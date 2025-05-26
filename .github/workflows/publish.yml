@@ -30,10 +30,6 @@ jobs:
         run: npm install
         shell: bash
 
-      - name: Build the library
-        run: npx nx build ngx-overlay --configuration production --no-cloud
-        shell: bash
-
       - name: Print Environment Info
         run: npx nx report
         shell: bash
