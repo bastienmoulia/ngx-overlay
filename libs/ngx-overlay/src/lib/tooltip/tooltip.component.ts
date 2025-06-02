@@ -26,7 +26,7 @@ export const TOOLTIP_CSS_VARIABLES = {
 
 @Component({
   selector: 'ngxo-tooltip',
-  template: ` <ng-content /> `,
+  template: `<ng-content /> `,
   host: {
     popover: 'hint',
     role: 'tooltip',
