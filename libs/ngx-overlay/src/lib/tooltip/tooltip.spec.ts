@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { NgxoTooltipComponent } from './tooltip.component';
+import { NgxoTooltip } from './tooltip';
 
-describe('NgxoTooltipComponent', () => {
-  let component: NgxoTooltipComponent;
-  let fixture: ComponentFixture<NgxoTooltipComponent>;
+describe('NgxoTooltip', () => {
+  let component: NgxoTooltip;
+  let fixture: ComponentFixture<NgxoTooltip>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [NgxoTooltipComponent],
+      imports: [NgxoTooltip],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(NgxoTooltipComponent);
+    fixture = TestBed.createComponent(NgxoTooltip);
     component = fixture.componentInstance;
     fixture.componentRef.setInput('interestId', 'myInterestId');
     fixture.detectChanges();

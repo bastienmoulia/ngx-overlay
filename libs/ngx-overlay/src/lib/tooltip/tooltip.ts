@@ -3,6 +3,7 @@ import {
   ChangeDetectionStrategy,
   Component,
   computed,
+  Directive,
   effect,
   ElementRef,
   inject,
@@ -61,7 +62,7 @@ export const TOOLTIP_CSS_VARIABLES = {
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class NgxoTooltipComponent implements OnDestroy {
+export class NgxoTooltip implements OnDestroy {
   #document = inject(DOCUMENT);
   #elementRef = inject(ElementRef<HTMLElement>);
 

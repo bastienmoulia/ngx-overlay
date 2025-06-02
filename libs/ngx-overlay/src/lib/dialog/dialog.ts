@@ -9,6 +9,6 @@ import { ChangeDetectionStrategy, Component, input } from '@angular/core';
   styles: ``,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class NgxoDialogComponent {
+export class NgxoDialog {
   closedby = input<'none' | 'closerequest' | 'any'>('any');
 }

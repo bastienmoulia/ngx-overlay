@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { NgxoDialogComponent } from './dialog.component';
+import { NgxoDialog } from './dialog';
 
-describe('NgxoDialogComponent', () => {
-  let component: NgxoDialogComponent;
-  let fixture: ComponentFixture<NgxoDialogComponent>;
+describe('NgxoDialog', () => {
+  let component: NgxoDialog;
+  let fixture: ComponentFixture<NgxoDialog>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [NgxoDialogComponent],
+      imports: [NgxoDialog],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(NgxoDialogComponent);
+    fixture = TestBed.createComponent(NgxoDialog);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

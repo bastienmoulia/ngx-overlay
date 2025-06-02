@@ -1,2 +1,2 @@
-export * from './lib/tooltip/tooltip.component';
-export * from './lib/dialog/dialog.component';
+export * from './lib/tooltip/tooltip';
+export * from './lib/dialog/dialog';

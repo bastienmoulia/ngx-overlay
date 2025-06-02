@@ -1,20 +1,20 @@
 import { Route } from '@angular/router';
-import { TooltipComponent } from './tooltip/tooltip.component';
-import { DialogComponent } from './dialog/dialog.component';
-import { HomeComponent } from './home/home.component';
+import { TooltipPage } from './tooltip-page/tooltip-page';
+import { DialogPage } from './dialog-page/dialog-page';
+import { HomePage } from './home-page/home-page';
 
 export const appRoutes: Route[] = [
   {
     path: '',
-    component: HomeComponent,
+    component: HomePage,
   },
   {
     path: 'dialog',
-    component: DialogComponent,
+    component: DialogPage,
   },
   {
     path: 'tooltip',
-    component: TooltipComponent,
+    component: TooltipPage,
   },
   {
     path: '**',
