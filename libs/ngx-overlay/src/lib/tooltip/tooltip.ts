@@ -114,27 +114,22 @@ export class NgxoTooltip implements OnDestroy {
     } else {
       switch (this.position()) {
         case 'top':
-          styles['bottom'] =
-            'calc(anchor(top) + var(--ngxo-tooltip-offset, 5px))';
-          styles['justify-self'] = 'anchor-center';
+          styles['position-area'] = 'top';
           styles['position-try-fallbacks'] = 'flip-block';
+          styles['position-try-order'] = 'most-height';
           break;
         case 'bottom':
-          styles['top'] =
-            'calc(anchor(bottom) + var(--ngxo-tooltip-offset, 5px))';
-          styles['justify-self'] = 'anchor-center';
+          styles['position-area'] = 'bottom';
           styles['position-try-fallbacks'] = 'flip-block';
+          styles['position-try-order'] = 'most-height';
+
           break;
         case 'left':
-          styles['right'] =
-            'calc(anchor(left) + var(--ngxo-tooltip-offset, 5px))';
-          styles['align-self'] = 'anchor-center';
+          styles['position-area'] = 'center left';
           styles['position-try-fallbacks'] = 'flip-inline';
           break;
         case 'right':
-          styles['left'] =
-            'calc(anchor(right) + var(--ngxo-tooltip-offset, 5px))';
-          styles['align-self'] = 'anchor-center';
+          styles['position-area'] = 'center right';
           styles['position-try-fallbacks'] = 'flip-inline';
           break;
       }
