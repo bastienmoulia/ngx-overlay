@@ -1,4 +1,4 @@
-import { DOCUMENT } from '@angular/common';
+
 import {
   ChangeDetectionStrategy,
   Component,
@@ -10,6 +10,7 @@ import {
   input,
   OnDestroy,
   signal,
+  DOCUMENT
 } from '@angular/core';
 
 export const TOOLTIP_CSS_VARIABLES = {
