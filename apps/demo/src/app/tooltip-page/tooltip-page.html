@@ -7,17 +7,36 @@
   customized with different styles.
 </p>
 
+<p>This component use 2 relatively new web technologies:</p>
+<ul>
+  <li>
+    <a
+      href="https://open-ui.org/components/interest-invokers.explainer/"
+      target="_blank"
+      >interestfor attribute</a
+    >: allows to displayed an element when there is an interest (hover, focus)
+    for another one
+  </li>
+  <li>
+    <a
+      href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_anchor_positioning"
+      target="_blank"
+      >CSS anchor positioning</a
+    >: allows you to position an element relative to another element
+  </li>
+</ul>
+
 <h2>Basic Usage</h2>
 
 <p>
   The <code>ngxo-tooltip</code> component uses the <code>interestId</code> input
   property to create a tooltip that can be attached to any element with the same
-  <code>interesttarget</code> attribute value. The tooltip will be displayed
-  when the user hovers over the element.
+  <code>interestfor</code> attribute value. The tooltip will be displayed when
+  the user hovers over the element.
 </p>
 
 <ngxo-tooltip [interestId]="'my-tooltip'">My awesome tooltip</ngxo-tooltip>
-<button interesttarget="my-tooltip">Hover me</button>
+<button interestfor="my-tooltip">Hover me</button>
 
 <h2>Positioning</h2>
 
@@ -32,8 +51,23 @@
 <ngxo-tooltip [interestId]="'my-tooltip-' + position" [position]="position"
   >My awesome tooltip</ngxo-tooltip
 >
-<button [attr.interesttarget]="'my-tooltip-' + position">{{ position }}</button>
+<button [attr.interestfor]="'my-tooltip-' + position">{{ position }}</button>
 }
+
+<h2>Delay</h2>
+<p>
+  You can set a delay for the tooltip to appear and disappear using the input
+  properties <code>showDelay</code> and <code>hideDelay</code>. The delay is
+  specified in milliseconds.
+</p>
+
+<ngxo-tooltip
+  [interestId]="'my-tooltip-delay'"
+  [showDelay]="1000"
+  [hideDelay]="2000"
+  >My awesome tooltip</ngxo-tooltip
+>
+<button interestfor="my-tooltip-delay">Show after 1s, hide after 2s</button>
 
 <h2>Custom Styles</h2>
 
@@ -67,7 +101,7 @@
   style="--ngxo-tooltip-background-color: #fff; --ngxo-tooltip-text-color: #000"
   >My awesome tooltip</ngxo-tooltip
 >
-<button interesttarget="my-dark-tooltip">Dark mode tooltip</button>
+<button interestfor="my-dark-tooltip">Dark mode tooltip</button>
 
 <ngxo-tooltip
   [interestId]="'my-fancy-tooltip'"
@@ -84,4 +118,4 @@
   "
   >My awesome tooltip</ngxo-tooltip
 >
-<button interesttarget="my-fancy-tooltip">Fancy tooltip</button>
+<button interestfor="my-fancy-tooltip">Fancy tooltip</button>

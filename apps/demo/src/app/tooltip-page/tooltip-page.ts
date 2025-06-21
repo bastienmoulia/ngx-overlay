@@ -1,6 +1,10 @@
 import { KeyValuePipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { NgxoTooltip, TOOLTIP_CSS_VARIABLES } from '@ngx-overlay/ngx-overlay';
+import {
+  NgxoTooltip,
+  NgxoTooltipPosition,
+  NGXO_TOOLTIP_CSS_VARIABLES,
+} from '@ngx-overlay/ngx-overlay';
 import { HeaderComponent } from '../header/header.component';
 
 @Component({
@@ -11,11 +15,6 @@ import { HeaderComponent } from '../header/header.component';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TooltipPage {
-  positions: ('top' | 'bottom' | 'left' | 'right')[] = [
-    'top',
-    'bottom',
-    'left',
-    'right',
-  ];
-  cssVariables = TOOLTIP_CSS_VARIABLES;
+  positions: NgxoTooltipPosition[] = ['top', 'bottom', 'left', 'right'];
+  cssVariables = NGXO_TOOLTIP_CSS_VARIABLES;
 }
