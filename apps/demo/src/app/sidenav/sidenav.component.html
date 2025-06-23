@@ -1,0 +1,11 @@
+<nav class="sidenav">
+  <ul>
+    @for (link of links; track link.path) {
+      <li>
+        <a [routerLink]="link.path" routerLinkActive="active-link">{{
+          link.label
+        }}</a>
+      </li>
+    }
+  </ul>
+</nav>

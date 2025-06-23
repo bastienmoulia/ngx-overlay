@@ -4,12 +4,22 @@ import {
   NgxoTooltip,
   NgxoTooltipPosition,
   NGXO_TOOLTIP_CSS_VARIABLES,
+  NgxoTooltipDirective,
 } from '@ngx-overlay/ngx-overlay';
 import { HeaderComponent } from '../header/header.component';
+import { SidenavComponent } from '../sidenav/sidenav.component';
+import { DemoCodeComponent } from '../demo-code/demo-code.component';
 
 @Component({
   selector: 'app-tooltip-page',
-  imports: [NgxoTooltip, KeyValuePipe, HeaderComponent],
+  imports: [
+    NgxoTooltip,
+    NgxoTooltipDirective,
+    KeyValuePipe,
+    HeaderComponent,
+    SidenavComponent,
+    DemoCodeComponent,
+  ],
   templateUrl: './tooltip-page.html',
   styleUrl: './tooltip-page.css',
   changeDetection: ChangeDetectionStrategy.OnPush,

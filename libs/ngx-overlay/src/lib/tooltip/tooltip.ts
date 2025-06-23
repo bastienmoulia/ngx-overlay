@@ -9,6 +9,10 @@ import {
   OnDestroy,
   signal,
   DOCUMENT,
+  Directive,
+  AfterViewInit,
+  ViewContainerRef,
+  inputBinding,
 } from '@angular/core';
 
 export const NGXO_TOOLTIP_CSS_VARIABLES = {
@@ -96,7 +100,7 @@ export class NgxoTooltip implements OnDestroy {
 
   interestId = input.required<string>();
   position = input<NgxoTooltipPosition>('top');
-  style = input<string | null>(null);
+  style = input<{ [key: string]: string | null }>({});
   showDelay = input<number | null>(null);
   hideDelay = input<number | null>(null);
   hasInterestPolyfill = signal(false);
@@ -137,11 +141,7 @@ export class NgxoTooltip implements OnDestroy {
     return styles;
   });
   styleString = computed(() => {
-    let styleString = this.styleToString(this.computedStyle());
-    if (this.style()) {
-      styleString += ';' + this.style();
-    }
-    return styleString;
+    return this.styleToString({ ...this.computedStyle(), ...this.style() });
   });
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   private cleanup: () => void = () => {};
@@ -231,5 +231,46 @@ export class NgxoTooltip implements OnDestroy {
     return Object.entries(style)
       .map(([key, value]) => `${key}: ${value}`)
       .join('; ');
+  }
+}
+
+@Directive({
+  selector: '[ngxoTooltip]',
+  host: {
+    '[attr.interestfor]': 'interestId()',
+  },
+})
+export class NgxoTooltipDirective implements AfterViewInit {
+  #viewContainerRef = inject(ViewContainerRef);
+
+  // properties
+  interestId = signal(window.crypto.randomUUID());
+
+  // inputs
+  ngxoTooltip = input.required<string>();
+  ngxoTooltipPosition = input<NgxoTooltipPosition>('top');
+  ngxoTooltipCssClass = input<string>();
+  ngxoTooltipStyle = input<{ [key: string]: string | null }>();
+  ngxoTooltipShowDelay = input<number>(300); // in milliseconds
+  ngxoTooltipHideDelay = input<number>(300); // in milliseconds
+
+  ngAfterViewInit() {
+    const doc = new DOMParser().parseFromString(
+      this.ngxoTooltip(),
+      'text/html',
+    );
+
+    this.#viewContainerRef.createComponent(NgxoTooltip, {
+      bindings: [
+        inputBinding('interestId', this.interestId),
+        inputBinding('position', this.ngxoTooltipPosition),
+        //inputBinding('cssClass', this.ngxoTooltipCssClass),
+        inputBinding('style', this.ngxoTooltipStyle),
+        inputBinding('showDelay', this.ngxoTooltipShowDelay),
+        inputBinding('hideDelay', this.ngxoTooltipHideDelay),
+      ],
+
+      projectableNodes: [[...Array.from(doc.body.childNodes)]],
+    });
   }
 }

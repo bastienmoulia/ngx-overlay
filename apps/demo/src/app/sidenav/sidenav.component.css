@@ -1,0 +1,43 @@
+:host {
+  display: flex;
+}
+
+.sidenav {
+  width: 200px;
+  padding: 2rem 1rem;
+  background: #f7fafc;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(49, 130, 206, 0.06);
+}
+
+.sidenav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sidenav li {
+  margin-bottom: 1.2em;
+}
+
+.sidenav a {
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+  color: #2d3748;
+  text-decoration: none;
+  font-size: 1.08rem;
+  font-weight: 500;
+  padding: 0.5em 0.8em;
+  border-radius: 6px;
+  transition:
+    background 0.18s,
+    color 0.18s;
+}
+
+.sidenav a:hover,
+.sidenav a:focus-visible,
+.sidenav a.active-link {
+  background: #3182ce;
+  color: #fff;
+}
