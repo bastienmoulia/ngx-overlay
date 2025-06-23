@@ -9,5 +9,8 @@ import { SidenavComponent } from '../sidenav/sidenav.component';
   templateUrl: './dialog-page.html',
   styleUrl: './dialog-page.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  host: {
+    class: 'main-layout',
+  },
 })
 export class DialogPage {}

@@ -1,0 +1,38 @@
+:host {
+  display: block;
+  border: 1px solid #ccc;
+  border-radius: 0.5rem;
+}
+
+.demo {
+  padding: 1em;
+}
+
+.tabs {
+  display: flex;
+  overflow-x: auto;
+  background-color: #eee;
+  border-top: 1px solid #ccc;
+}
+.tab {
+  flex: 0 0 auto;
+  padding: 0.5rem 1rem;
+  border: 0;
+  cursor: pointer;
+  text-transform: uppercase;
+  transition:
+    background-color 0.3s,
+    border-color 0.3s;
+}
+.tab:hover,
+.tab:focus-visible,
+.tab.active {
+  background-color: white;
+}
+
+.code-content {
+  display: none;
+}
+.code-content.active {
+  display: block;
+}

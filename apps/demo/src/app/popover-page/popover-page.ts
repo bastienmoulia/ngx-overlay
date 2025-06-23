@@ -8,5 +8,8 @@ import { SidenavComponent } from '../sidenav/sidenav.component';
   templateUrl: './popover-page.html',
   styleUrl: './popover-page.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  host: {
+    class: 'main-layout',
+  },
 })
 export class PopoverPage {}

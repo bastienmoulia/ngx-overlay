@@ -21,6 +21,9 @@ import { DemoCodeComponent } from '../demo-code/demo-code.component';
   templateUrl: './tooltip-page.html',
   styleUrl: './tooltip-page.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  host: {
+    class: 'main-layout',
+  },
 })
 export class TooltipPage {
   cssVariables = NGXO_TOOLTIP_CSS_VARIABLES;

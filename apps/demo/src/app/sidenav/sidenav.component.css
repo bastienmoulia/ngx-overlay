@@ -1,12 +1,6 @@
-:host {
-  display: flex;
-}
-
 .sidenav {
-  width: 200px;
-  padding: 2rem 1rem;
+  padding: 1rem;
   background: #f7fafc;
-  border-radius: 12px;
   box-shadow: 0 2px 8px rgba(49, 130, 206, 0.06);
 }
 

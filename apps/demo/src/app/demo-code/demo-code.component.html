@@ -1,10 +1,25 @@
-<div>
+<div class="demo">
   <ng-content />
 </div>
-@for (code of codeData(); track $index) {
-  @if (code.loaded) {
-    <pre><code [highlight]="code.content" [language]="code.extension" lineNumbers></code></pre>
-  } @else {
-    <p>Loading code...</p>
+<div class="tabs">
+  @for (code of codeData(); track $index) {
+    <button
+      class="tab"
+      [class.active]="tabSelected() === $index"
+      (click)="tabSelected.set($index)"
+    >
+      {{ code.extension }}
+    </button>
   }
-}
+</div>
+<div class="code-container">
+  @for (code of codeData(); track $index) {
+    <div class="code-content" [class.active]="tabSelected() === $index">
+      @if (code.loaded) {
+        <pre><code [highlight]="code.content" [language]="code.extension" lineNumbers></code></pre>
+      } @else {
+        <p>Loading code...</p>
+      }
+    </div>
+  }
+</div>

@@ -6,6 +6,7 @@ import {
   inject,
   input,
   linkedSignal,
+  signal,
 } from '@angular/core';
 import { HighlightModule } from 'ngx-highlightjs';
 
@@ -20,7 +21,6 @@ export class DemoCodeComponent {
   #httpClient = inject(HttpClient);
 
   codeUrls = input.required<string[]>();
-
   codeData = linkedSignal(() => {
     return this.codeUrls().map((url) => {
       return {
@@ -31,6 +31,7 @@ export class DemoCodeComponent {
       };
     });
   });
+  tabSelected = signal(0);
 
   constructor() {
     effect(() => {

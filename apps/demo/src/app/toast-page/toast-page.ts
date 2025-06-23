@@ -8,5 +8,8 @@ import { SidenavComponent } from '../sidenav/sidenav.component';
   templateUrl: './toast-page.html',
   styleUrl: './toast-page.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  host: {
+    class: 'main-layout',
+  },
 })
 export class ToastPage {}
