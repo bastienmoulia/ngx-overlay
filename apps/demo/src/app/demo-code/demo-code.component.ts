@@ -1,9 +1,11 @@
-import { httpResource } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import {
   ChangeDetectionStrategy,
   Component,
-  computed,
+  effect,
+  inject,
   input,
+  linkedSignal,
 } from '@angular/core';
 import { HighlightModule } from 'ngx-highlightjs';
 
@@ -15,6 +17,34 @@ import { HighlightModule } from 'ngx-highlightjs';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DemoCodeComponent {
-  codeUrl = input.required<string>();
-  codeRessource = httpResource.text<string>(() => this.codeUrl());
+  #httpClient = inject(HttpClient);
+
+  codeUrls = input.required<string[]>();
+
+  codeData = linkedSignal(() => {
+    return this.codeUrls().map((url) => {
+      return {
+        content: '',
+        loaded: false,
+        url: url,
+        extension: url.split('.').pop() || '',
+      };
+    });
+  });
+
+  constructor() {
+    effect(() => {
+      for (let i = 0; i < this.codeUrls().length; i++) {
+        this.#httpClient
+          .get(this.codeUrls()[i], { responseType: 'text' })
+          .subscribe((data) => {
+            this.codeData.update((current) => {
+              current[i].content = data;
+              current[i].loaded = true;
+              return [...current];
+            });
+          });
+      }
+    });
+  }
 }

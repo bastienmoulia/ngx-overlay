@@ -1,4 +1,10 @@
 <div>
   <ng-content />
 </div>
-<pre><code [highlightAuto]="codeRessource.value()!" lineNumbers></code></pre>
+@for (code of codeData(); track $index) {
+  @if (code.loaded) {
+    <pre><code [highlight]="code.content" [language]="code.extension" lineNumbers></code></pre>
+  } @else {
+    <p>Loading code...</p>
+  }
+}

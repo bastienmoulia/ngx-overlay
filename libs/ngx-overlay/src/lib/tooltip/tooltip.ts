@@ -3,7 +3,6 @@ import {
   Component,
   computed,
   effect,
-  ElementRef,
   inject,
   input,
   OnDestroy,
@@ -16,10 +15,9 @@ import {
 } from '@angular/core';
 
 export const NGXO_TOOLTIP_CSS_VARIABLES = {
-  '--ngxo-tooltip-margin': '0',
+  '--ngxo-tooltip-margin': '.5rem',
   '--ngxo-tooltip-background-color': '#000',
   '--ngxo-tooltip-text-color': '#fff',
-  '--ngxo-tooltip-offset': '.5rem',
   '--ngxo-tooltip-border-radius': '.25rem',
   '--ngxo-tooltip-border': 'none',
   '--ngxo-tooltip-padding': '.5rem',
@@ -38,6 +36,7 @@ export type NgxoTooltipPosition = 'top' | 'bottom' | 'left' | 'right';
     role: 'tooltip',
     '[attr.id]': 'interestId()',
     '[attr.style]': 'styleString()',
+    '[class]': 'class()',
   },
   styles: `
     :host {
@@ -94,49 +93,38 @@ export type NgxoTooltipPosition = 'top' | 'bottom' | 'left' | 'right';
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class NgxoTooltip implements OnDestroy {
+export class NgxoTooltipComponent implements OnDestroy {
   #document = inject(DOCUMENT);
-  #elementRef = inject(ElementRef<HTMLElement>);
 
   interestId = input.required<string>();
   position = input<NgxoTooltipPosition>('top');
   style = input<{ [key: string]: string | null }>({});
+  class = input<string | null>(null);
   showDelay = input<number | null>(null);
   hideDelay = input<number | null>(null);
   hasInterestPolyfill = signal(false);
-  noCssAnchor = signal(false);
   target = signal<HTMLElement>(undefined!);
   computedStyle = computed(() => {
     const styles: { [key: string]: string | null } = {
       'position-anchor': '--' + this.interestId(),
     };
-    if (this.noCssAnchor()) {
-      styles['top'] = 'auto';
-      styles['bottom'] = 'auto';
-      styles['left'] = 'auto';
-      styles['right'] = 'auto';
-    } else {
-      switch (this.position()) {
-        case 'top':
-          styles['position-area'] = 'top';
-          styles['position-try-fallbacks'] = 'flip-block';
-          styles['position-try-order'] = 'most-height';
-          break;
-        case 'bottom':
-          styles['position-area'] = 'bottom';
-          styles['position-try-fallbacks'] = 'flip-block';
-          styles['position-try-order'] = 'most-height';
-
-          break;
-        case 'left':
-          styles['position-area'] = 'center left';
-          styles['position-try-fallbacks'] = 'flip-inline';
-          break;
-        case 'right':
-          styles['position-area'] = 'center right';
-          styles['position-try-fallbacks'] = 'flip-inline';
-          break;
-      }
+    switch (this.position()) {
+      case 'top':
+        styles['position-area'] = 'top';
+        styles['position-try-fallbacks'] = 'flip-block';
+        break;
+      case 'bottom':
+        styles['position-area'] = 'bottom';
+        styles['position-try-fallbacks'] = 'flip-block';
+        break;
+      case 'left':
+        styles['position-area'] = 'center left';
+        styles['position-try-fallbacks'] = 'flip-inline';
+        break;
+      case 'right':
+        styles['position-area'] = 'center right';
+        styles['position-try-fallbacks'] = 'flip-inline';
+        break;
     }
     return styles;
   });
@@ -160,10 +148,6 @@ export class NgxoTooltip implements OnDestroy {
         document.head.appendChild(newScript);
       }
       this.hasInterestPolyfill.set(true);
-    }
-
-    if (!('anchorName' in document.documentElement.style)) {
-      this.noCssAnchor.set(true);
     }
 
     effect(() => {
@@ -195,32 +179,6 @@ export class NgxoTooltip implements OnDestroy {
         }
       }
     });
-
-    effect(() => {
-      if (this.target() && this.noCssAnchor()) {
-        (async () => {
-          const { autoUpdate, computePosition, offset } = await import(
-            '@floating-ui/dom'
-          );
-          this.cleanup();
-          this.cleanup = autoUpdate(
-            this.target(),
-            this.#elementRef.nativeElement,
-            () => {
-              computePosition(this.target(), this.#elementRef.nativeElement, {
-                placement: this.position(),
-                middleware: [offset(4)],
-              }).then(({ x, y }) => {
-                Object.assign(this.#elementRef.nativeElement.style, {
-                  left: `${x}px`,
-                  top: `${y}px`,
-                });
-              });
-            },
-          );
-        })();
-      }
-    });
   }
 
   ngOnDestroy(): void {
@@ -240,7 +198,7 @@ export class NgxoTooltip implements OnDestroy {
     '[attr.interestfor]': 'interestId()',
   },
 })
-export class NgxoTooltipDirective implements AfterViewInit {
+export class NgxoTooltip implements AfterViewInit {
   #viewContainerRef = inject(ViewContainerRef);
 
   // properties
@@ -249,7 +207,7 @@ export class NgxoTooltipDirective implements AfterViewInit {
   // inputs
   ngxoTooltip = input.required<string>();
   ngxoTooltipPosition = input<NgxoTooltipPosition>('top');
-  ngxoTooltipCssClass = input<string>();
+  ngxoTooltipClass = input<string>();
   ngxoTooltipStyle = input<{ [key: string]: string | null }>();
   ngxoTooltipShowDelay = input<number>(300); // in milliseconds
   ngxoTooltipHideDelay = input<number>(300); // in milliseconds
@@ -260,11 +218,11 @@ export class NgxoTooltipDirective implements AfterViewInit {
       'text/html',
     );
 
-    this.#viewContainerRef.createComponent(NgxoTooltip, {
+    this.#viewContainerRef.createComponent(NgxoTooltipComponent, {
       bindings: [
         inputBinding('interestId', this.interestId),
         inputBinding('position', this.ngxoTooltipPosition),
-        //inputBinding('cssClass', this.ngxoTooltipCssClass),
+        inputBinding('class', this.ngxoTooltipClass),
         inputBinding('style', this.ngxoTooltipStyle),
         inputBinding('showDelay', this.ngxoTooltipShowDelay),
         inputBinding('hideDelay', this.ngxoTooltipHideDelay),

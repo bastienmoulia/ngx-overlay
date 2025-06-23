@@ -37,7 +37,7 @@
     value. The tooltip will be displayed when the user hovers over the element.
   </p>
 
-  <app-demo-code [codeUrl]="'/code/tooltip-basic.html'">
+  <app-demo-code [codeUrls]="['/code/tooltip-basic.html']">
     <button ngxoTooltip="My awesome tooltip">Hover me</button>
   </app-demo-code>
 
@@ -50,16 +50,20 @@
     position is <code>top</code>.
   </p>
 
-  @for(position of positions; track $index) {
-  <ngxo-tooltip [interestId]="'my-tooltip-' + position" [position]="position"
-    >My awesome tooltip</ngxo-tooltip
-  >
-  <button [attr.interestfor]="'my-tooltip-' + position">{{ position }}</button>
-  <button ngxoTooltip="My awesome tooltip {{ position }}">
-    {{ position }}
-  </button>
-
-  }
+  <app-demo-code [codeUrls]="['/code/tooltip-position.html']">
+    <button ngxoTooltip="My awesome tooltip" ngxoTooltipPosition="top">
+      Top
+    </button>
+    <button ngxoTooltip="My awesome tooltip" ngxoTooltipPosition="bottom">
+      Bottom
+    </button>
+    <button ngxoTooltip="My awesome tooltip" ngxoTooltipPosition="left">
+      Left
+    </button>
+    <button ngxoTooltip="My awesome tooltip" ngxoTooltipPosition="right">
+      Right
+    </button>
+  </app-demo-code>
 
   <h2>Delay</h2>
   <p>
@@ -68,7 +72,7 @@
     specified in milliseconds.
   </p>
 
-  <app-demo-code [codeUrl]="'/code/tooltip-delay.html'">
+  <app-demo-code [codeUrls]="['/code/tooltip-delay.html']">
     <button
       ngxoTooltip="My awesome tooltip"
       [ngxoTooltipShowDelay]="1000"
@@ -105,7 +109,9 @@
     </tbody>
   </table>
 
-  <app-demo-code [codeUrl]="'/code/tooltip-custom.html'">
+  <app-demo-code
+    [codeUrls]="['/code/tooltip-custom.html', '/code/tooltip-custom.css']"
+  >
     <button
       ngxoTooltip="My awesome tooltip"
       [ngxoTooltipStyle]="{
@@ -115,20 +121,8 @@
     >
       Dark mode tooltip
     </button>
-    <button
-      ngxoTooltip="My awesome tooltip"
-      [ngxoTooltipStyle]="{
-        '--ngxo-tooltip-background-color': '#e85bc9',
-        '--ngxo-tooltip-text-color': '#150db0',
-        '--ngxo-tooltip-offset': '0.1rem',
-        '--ngxo-tooltip-border-radius': '1rem',
-        '--ngxo-tooltip-border': 'none',
-        '--ngxo-tooltip-padding': '0.5rem 1rem',
-        '--ngxo-tooltip-font': 'normal 1.5rem Comic Sans MS, sans-serif',
-        '--ngxo-tooltip-box-shadow': '0 0 1rem rgba(0, 0, 0, 0.5)',
-        '--ngxo-tooltip-transition': 'opacity 0.5s ease-in-out'
-      }"
-    >
+
+    <button ngxoTooltip="My awesome tooltip" ngxoTooltipClass="fancyTooltip">
       Fancy tooltip
     </button>
   </app-demo-code>
