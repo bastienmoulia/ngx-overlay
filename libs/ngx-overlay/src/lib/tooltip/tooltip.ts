@@ -159,11 +159,11 @@ export class NgxoTooltipComponent implements OnDestroy {
           const style: { [key: string]: string } = {
             'anchor-name': `--${this.interestId()}`,
           };
-          if (this.showDelay()) {
+          if (this.showDelay() !== null) {
             style['interest-show-delay'] = `${this.showDelay()}ms`;
             style['--interest-show-delay'] = `${this.showDelay()}ms`;
           }
-          if (this.hideDelay()) {
+          if (this.hideDelay() !== null) {
             style['interest-hide-delay'] = `${this.hideDelay()}ms`;
             style['--interest-hide-delay'] = `${this.hideDelay()}ms`;
           }
