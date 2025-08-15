@@ -14,7 +14,8 @@
     "allowSyntheticDefaultImports": true,
     "paths": {
       "@ng-doc/generated": ["ng-doc/docs/index.ts"],
-      "@ng-doc/generated/*": ["ng-doc/docs/*"]
+      "@ng-doc/generated/*": ["ng-doc/docs/*"],
+      "@ngx-overlay/ngx-overlay": ["libs/ngx-overlay/src/index.ts"]
     }
   },
   "angularCompilerOptions": {

@@ -1,7 +1,6 @@
 import { KeyValuePipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import {
-  NgxoTooltipPosition,
   NGXO_TOOLTIP_CSS_VARIABLES,
   NgxoTooltip,
 } from '@ngx-overlay/ngx-overlay';
