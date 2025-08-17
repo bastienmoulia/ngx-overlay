@@ -107,7 +107,6 @@ export class NgxoTooltipComponent implements OnDestroy {
   class = input<string | null>(null);
   showDelay = input<number | null>(null);
   hideDelay = input<number | null>(null);
-  hasInterestPolyfill = signal(false);
   target = signal<HTMLElement>(undefined!);
   computedStyle = computed(() => {
     const styles: { [key: string]: string | null } = {
@@ -140,48 +139,31 @@ export class NgxoTooltipComponent implements OnDestroy {
   private cleanup: () => void = () => {};
 
   constructor() {
-    // eslint-disable-next-line no-prototype-builtins
-    if (!HTMLButtonElement.prototype.hasOwnProperty('interestforElement')) {
-      const src = 'https://unpkg.com/interestfor/src/interestfor.min.js';
-      const scriptExists = Array.from(document.scripts).some(
-        (s) => s.src === src,
-      );
-      if (!scriptExists) {
-        const newScript = document.createElement('script');
-        newScript.src = src;
-        newScript.async = false;
-        document.head.appendChild(newScript);
-      }
-      this.hasInterestPolyfill.set(true);
-    }
-
     effect(() => {
-      if (this.hasInterestPolyfill()) {
-        const target = this.#document.querySelector(
-          '[interestfor="' + this.interestId() + '"]',
-        );
-        if (target) {
-          const style: { [key: string]: string } = {
-            'anchor-name': `--${this.interestId()}`,
-          };
-          if (this.showDelay() !== null) {
-            style['interest-show-delay'] = `${this.showDelay()}ms`;
-            style['--interest-show-delay'] = `${this.showDelay()}ms`;
-          }
-          if (this.hideDelay() !== null) {
-            style['interest-hide-delay'] = `${this.hideDelay()}ms`;
-            style['--interest-hide-delay'] = `${this.hideDelay()}ms`;
-          }
-          target.setAttribute('style', this.styleToString(style));
-          Array.from(target.children).forEach((child) => {
-            (child as HTMLElement).style.pointerEvents = 'none';
-          });
-          this.target.set(target as HTMLElement);
-        } else {
-          console.warn(
-            `Element with interestfor="${this.interestId()}" not found.`,
-          );
+      const target = this.#document.querySelector(
+        '[interestfor="' + this.interestId() + '"]',
+      );
+      if (target) {
+        const style: { [key: string]: string } = {
+          'anchor-name': `--${this.interestId()}`,
+        };
+        if (this.showDelay() !== null) {
+          style['interest-show-delay'] = `${this.showDelay()}ms`;
+          style['--interest-show-delay'] = `${this.showDelay()}ms`;
         }
+        if (this.hideDelay() !== null) {
+          style['interest-hide-delay'] = `${this.hideDelay()}ms`;
+          style['--interest-hide-delay'] = `${this.hideDelay()}ms`;
+        }
+        target.setAttribute('style', this.styleToString(style));
+        Array.from(target.children).forEach((child) => {
+          (child as HTMLElement).style.pointerEvents = 'none';
+        });
+        this.target.set(target as HTMLElement);
+      } else {
+        console.warn(
+          `Element with interestfor="${this.interestId()}" not found.`,
+        );
       }
     });
   }

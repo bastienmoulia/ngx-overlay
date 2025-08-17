@@ -19,6 +19,7 @@ import {
 } from '@ng-doc/app';
 import { NG_DOC_ROUTING, provideNgDocContext } from '@ng-doc/generated';
 import { provideAnimations } from '@angular/platform-browser/animations';
+import { provideNgxOverlay } from '@ngx-overlay/ngx-overlay';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -54,5 +55,6 @@ export const appConfig: ApplicationConfig = {
         anchorScrolling: 'enabled',
       }),
     ),
+    provideNgxOverlay(),
   ],
 };

@@ -10,6 +10,22 @@ To add the package, run the following command:
 npm install @ngx-overlay/ngx-overlay
 ```
 
+## Configuration
+
+Add the provider to your application configuration or module:
+
+```typescript
+//...
+import { provideNgxOverlay } from '@ngx-overlay/ngx-overlay';
+
+bootstrapApplication(AppComponent, {
+  providers: [
+    //...
+    provideNgxOverlay(),
+  ],
+});
+```
+
 ## Supported Browsers
 
 This library use some relatively new browsers technologies:
