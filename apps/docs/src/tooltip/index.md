@@ -1,4 +1,5 @@
 ---
+title: Examples
 keyword: TooltipPage
 ---
 
@@ -6,7 +7,7 @@ Tooltips are used to provide additional information about an element when the us
 
 ## Basic Usage
 
-The `ngxo-tooltip` component uses the `interestId` input property to create a tooltip that can be attached to any element with the same `interestfor` attribute value. The tooltip will be displayed when the user hovers over the element.
+The `ngxo-tooltip` directive uses the `interestId` input property to create a tooltip that can be attached to any element with the same `interestfor` attribute value. The tooltip will be displayed when the user hovers over the element.
 
 {{ NgDocActions.demo("TooltipDemoComponent") }}
 
@@ -16,9 +17,12 @@ The tooltip can be positioned using the position input property. The available p
 
 {{ NgDocActions.demo("TooltipPositioningDemoComponent") }}
 
+> **Note**
+> You can use the enum `NgxoTooltipPosition` to set the position of the tooltip.
+
 ## Delay
 
-You can set a delay for the tooltip to appear and disappear using the input properties `ngxoTooltipShowDelay` and `ngxoTooltipHideDelay`. The delay is specified in milliseconds.
+You can set a delay for the tooltip to appear and disappear using the input properties `ngxoTooltipShowDelay` and `ngxoTooltipHideDelay`. The delay is specified in milliseconds and the default values is `300`.
 
 {{ NgDocActions.demo("TooltipDelayDemoComponent") }}
 

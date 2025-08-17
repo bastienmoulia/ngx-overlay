@@ -6,7 +6,7 @@ import { TooltipCustomStyleDemoComponent } from '../demos/tooltip-custom-style-d
 
 const TooltipPage: NgDocPage = {
   title: `Tooltip`,
-  mdFile: './index.md',
+  mdFile: ['./index.md', './api.md'],
   demos: {
     TooltipDemoComponent,
     TooltipPositioningDemoComponent,

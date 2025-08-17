@@ -1,4 +1,11 @@
 /* You can add global styles to this file, and also import other style files */
+.ng-doc-demo > * {
+  display: grid;
+  gap: 1em;
+  grid-auto-flow: column;
+  grid-auto-columns: max-content;
+}
+
 .fancyTooltip {
   --ngxo-tooltip-background-color: #e85bc9;
   --ngxo-tooltip-text-color: #150db0;

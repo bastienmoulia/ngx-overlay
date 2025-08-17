@@ -26,7 +26,18 @@ export const appConfig: ApplicationConfig = {
     provideZonelessChangeDetection(),
     provideNgDocContext(),
     // Provide default configuration for the documentation app
-    provideNgDocApp(),
+    provideNgDocApp({
+      shiki: {
+        themes: [
+          import('shiki/themes/material-theme-darker.mjs'),
+          import('shiki/themes/material-theme-lighter.mjs'),
+        ],
+        theme: {
+          dark: 'material-theme-darker',
+          light: 'material-theme-lighter',
+        },
+      },
+    }),
     provideSearchEngine(NgDocDefaultSearchEngine),
     providePageSkeleton(NG_DOC_DEFAULT_PAGE_SKELETON),
     provideMainPageProcessor(NG_DOC_DEFAULT_PAGE_PROCESSORS),

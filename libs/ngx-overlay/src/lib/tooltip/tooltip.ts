@@ -9,9 +9,9 @@ import {
   signal,
   DOCUMENT,
   Directive,
-  AfterViewInit,
   ViewContainerRef,
   inputBinding,
+  afterNextRender,
 } from '@angular/core';
 
 export const NGXO_TOOLTIP_CSS_VARIABLES = {
@@ -26,7 +26,12 @@ export const NGXO_TOOLTIP_CSS_VARIABLES = {
   '--ngxo-tooltip-transition': 'opacity 0.3s ease-in-out',
 };
 
-export type NgxoTooltipPosition = 'top' | 'bottom' | 'left' | 'right';
+export enum NgxoTooltipPosition {
+  Top = 'top',
+  Bottom = 'bottom',
+  Left = 'left',
+  Right = 'right',
+}
 
 @Component({
   selector: 'ngxo-tooltip',
@@ -97,7 +102,7 @@ export class NgxoTooltipComponent implements OnDestroy {
   #document = inject(DOCUMENT);
 
   interestId = input.required<string>();
-  position = input<NgxoTooltipPosition>('top');
+  position = input<`${NgxoTooltipPosition}`>(NgxoTooltipPosition.Top);
   style = input<{ [key: string]: string | null }>({});
   class = input<string | null>(null);
   showDelay = input<number | null>(null);
@@ -109,19 +114,19 @@ export class NgxoTooltipComponent implements OnDestroy {
       'position-anchor': '--' + this.interestId(),
     };
     switch (this.position()) {
-      case 'top':
+      case NgxoTooltipPosition.Top:
         styles['position-area'] = 'top';
         styles['position-try-fallbacks'] = 'flip-block';
         break;
-      case 'bottom':
+      case NgxoTooltipPosition.Bottom:
         styles['position-area'] = 'bottom';
         styles['position-try-fallbacks'] = 'flip-block';
         break;
-      case 'left':
+      case NgxoTooltipPosition.Left:
         styles['position-area'] = 'center left';
         styles['position-try-fallbacks'] = 'flip-inline';
         break;
-      case 'right':
+      case NgxoTooltipPosition.Right:
         styles['position-area'] = 'center right';
         styles['position-try-fallbacks'] = 'flip-inline';
         break;
@@ -198,37 +203,55 @@ export class NgxoTooltipComponent implements OnDestroy {
     '[attr.interestfor]': 'interestId()',
   },
 })
-export class NgxoTooltip implements AfterViewInit {
+export class NgxoTooltip {
+  /**
+   * @internal
+   */
   #viewContainerRef = inject(ViewContainerRef);
 
-  // properties
+  /**
+   * @internal
+   */
   interestId = signal(window.crypto.randomUUID());
 
   // inputs
   ngxoTooltip = input.required<string>();
-  ngxoTooltipPosition = input<NgxoTooltipPosition>('top');
+  ngxoTooltipPosition = input<`${NgxoTooltipPosition}`>(
+    NgxoTooltipPosition.Top,
+  );
   ngxoTooltipClass = input<string>();
   ngxoTooltipStyle = input<{ [key: string]: string | null }>();
-  ngxoTooltipShowDelay = input<number>(300); // in milliseconds
-  ngxoTooltipHideDelay = input<number>(300); // in milliseconds
+  /**
+   * In milliseconds
+   */
+  ngxoTooltipShowDelay = input<number>(300);
+  /**
+   * In milliseconds
+   */
+  ngxoTooltipHideDelay = input<number>(300);
 
-  ngAfterViewInit() {
-    const doc = new DOMParser().parseFromString(
-      this.ngxoTooltip(),
-      'text/html',
-    );
+  /**
+   * @internal
+   */
+  constructor() {
+    afterNextRender(() => {
+      const doc = new DOMParser().parseFromString(
+        this.ngxoTooltip(),
+        'text/html',
+      );
 
-    this.#viewContainerRef.createComponent(NgxoTooltipComponent, {
-      bindings: [
-        inputBinding('interestId', this.interestId),
-        inputBinding('position', this.ngxoTooltipPosition),
-        inputBinding('class', this.ngxoTooltipClass),
-        inputBinding('style', this.ngxoTooltipStyle),
-        inputBinding('showDelay', this.ngxoTooltipShowDelay),
-        inputBinding('hideDelay', this.ngxoTooltipHideDelay),
-      ],
+      this.#viewContainerRef.createComponent(NgxoTooltipComponent, {
+        bindings: [
+          inputBinding('interestId', this.interestId),
+          inputBinding('position', this.ngxoTooltipPosition),
+          inputBinding('class', this.ngxoTooltipClass),
+          inputBinding('style', this.ngxoTooltipStyle),
+          inputBinding('showDelay', this.ngxoTooltipShowDelay),
+          inputBinding('hideDelay', this.ngxoTooltipHideDelay),
+        ],
 
-      projectableNodes: [[...Array.from(doc.body.childNodes)]],
+        projectableNodes: [[...Array.from(doc.body.childNodes)]],
+      });
     });
   }
 }
