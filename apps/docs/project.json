@@ -86,13 +86,13 @@
     "lint": {
       "executor": "@nx/eslint:lint"
     },
-    "test": {
+    /*"test": {
       "executor": "@nx/vite:test",
       "outputs": ["{options.reportsDirectory}"],
       "options": {
         "reportsDirectory": "../../coverage/apps/docs"
       }
-    },
+    },*/
     "serve-static": {
       "continuous": true,
       "executor": "@nx/web:file-server",

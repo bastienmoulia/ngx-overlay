@@ -2,9 +2,7 @@
   "name": "@ngx-overlay/ngx-overlay",
   "version": "0.0.1",
   "peerDependencies": {
-    "@angular/common": "^19.2.0",
-    "@angular/core": "^19.2.0",
-    "@floating-ui/dom": "^1.7.0"
+    "@angular/core": "20.1.6"
   },
   "sideEffects": false
 }
