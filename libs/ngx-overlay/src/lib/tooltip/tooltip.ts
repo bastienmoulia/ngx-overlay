@@ -107,7 +107,7 @@ export class NgxoTooltipComponent implements OnDestroy {
   class = input<string | null>(null);
   showDelay = input<number | null>(null);
   hideDelay = input<number | null>(null);
-  target = signal<HTMLElement>(undefined!);
+  target = signal<HTMLElement | null>(null);
   computedStyle = computed(() => {
     const styles: { [key: string]: string | null } = {
       'position-anchor': '--' + this.interestId(),
